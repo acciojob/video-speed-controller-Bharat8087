@@ -5,6 +5,7 @@ const playbackRateSlider = document.querySelector('input[name="playbackRate"]');
 const skipButtons = document.querySelectorAll('[data-skip]');
 const progressFilled = document.querySelector('.progress__filled');
 const progress = document.querySelector('.progress');
+const rewindButton = document.querySelector('.rewind');
 
 function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
@@ -34,6 +35,10 @@ function scrub(e) {
   video.currentTime = scrubTime;
 }
 
+function rewind() {
+  video.currentTime -= 10;
+}
+
 video.addEventListener('click', togglePlay);
 toggleButton.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
@@ -42,6 +47,7 @@ video.addEventListener('timeupdate', handleProgress);
 volumeSlider.addEventListener('input', handleRangeUpdate);
 playbackRateSlider.addEventListener('input', handleRangeUpdate);
 skipButtons.forEach(button => button.addEventListener('click', skip));
+rewindButton.addEventListener('click', rewind);
 let mousedown = false;
 progress.addEventListener('click', scrub);
 progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
